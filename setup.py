@@ -20,7 +20,7 @@ def read_readme():
 
 setuptools.setup(
     name='pydstat',
-    version='1.0.1',
+    version='1.0.2',
     description='A Pythonic Wrapper for pidstat.',
     long_description=read_readme(),
     author='Greg Albrecht',
