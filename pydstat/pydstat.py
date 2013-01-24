@@ -81,7 +81,7 @@ class PydStat(object):
         devnullw = open('/dev/null', 'w')
 
         pidstat = shlex.split(
-            ' '.join([self.pidstat, '-druh', '-p', str(pid)]))
+            ' '.join([self.pidstat, '-druh', '-p', str(26503),'1','1']))
 
         proc = subprocess.Popen(
             pidstat,
