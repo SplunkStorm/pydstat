@@ -68,7 +68,7 @@ class PydStat(object):
         base_logger.addHandler(syslog_logger)
         self.logger = logging.LoggerAdapter(base_logger, {'help': HELP})
 
-    def get_stats(self, pid='ALL', interval=None):
+    def get_stats(self, pid='ALL', interval=None, frequency=None):
         """Call pidstat for the specified pid and return its output.
 
         @param pid: Pid to lookup. Default = 'ALL'
@@ -80,15 +80,11 @@ class PydStat(object):
         @rtype: list
         """
 
-        if interval is None:
-            interval = '1'
-            #set the interval to 1 second to be a default snapshot.
-
         devnullr = open('/dev/null', 'r')
         devnullw = open('/dev/null', 'w')
 
         pidstat = shlex.split(
-            ' '.join([self.pidstat, '-druh', '-p', str(pid), interval, '1']))
+            ' '.join([self.pidstat, '-druh', '-p', str(pid), str(interval), str(frequency)]))
 
         proc = subprocess.Popen(
             pidstat,
