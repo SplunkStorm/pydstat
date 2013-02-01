@@ -8,12 +8,9 @@ __author__ = 'Greg Albrecht <gba@splunk.com>'
 __copyright__ = 'Copyright 2012 Splunk, Inc.'
 __license__ = 'Apache License 2.0'
 
-
-import sys
-import optparse
-
 import pydstat
-
+import optparse
+import sys
 
 def main():
     """Main loop.
@@ -28,10 +25,10 @@ def main():
     #explains the use of this option/argument parser
     use = "Usage: %prog [options] processID interval frequency"
 
-    parser = optparse.OptionParser(usage = use)
+    parser = optparse.OptionParser(usage=use)
 
     parser.add_option( '-p',
-                       "--proc_id" ,
+                       '--proc_id' ,
                        dest='proc_id',
                        help='Process ID')
 
@@ -42,11 +39,10 @@ def main():
                        type=int)
 
     parser.add_option( '-f',
-                       "--frequency",
+                       '--frequency',
                        dest='frequency',
                        help='How many times the script will run. 1 by default.',
                        type=int)
-
 
     (options, args) = parser.parse_args()
 
@@ -54,16 +50,15 @@ def main():
         parser.print_help()
         parser.error("Incorrect number of arguments. Please enter -p <processID> -i <interval> -f <frequency>!")
 
-
     proc_id = options.proc_id
     if proc_id is None:
         proc_id = "ALL"
 
-    interval=options.interval
+    interval = options.interval
     if interval is None:
         interval = 1
 
-    frequency=options.frequency
+    frequency = options.frequency
     if frequency is None:
         frequency = 1
 
@@ -76,7 +71,6 @@ def main():
     #parse and log statistics
     pyds.parse_stats()
     pyds.log_stats()
-
 
 if __name__ == '__main__':
     sys.exit(main())
