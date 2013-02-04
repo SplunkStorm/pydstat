@@ -9,7 +9,6 @@ __copyright__ = 'Copyright 2011 Splunk, Inc.'
 __license__ = 'Apache License, Version 2.0'
 
 
-
 import logging
 import logging.handlers
 import os
@@ -19,9 +18,12 @@ import subprocess
 IGNORED_FIELDS = ('Time', 'PID', '%guest', 'CPU', 'Command')
 HELP = 'https://github.com/ampledata/pydstat'
 
+
 class PydStatError(StandardError):
+
     """Placeholder Exception for pydstat."""
     pass
+
 
 class PydStat(object):
     """PydStat."""
@@ -84,8 +86,12 @@ class PydStat(object):
         devnullw = open('/dev/null', 'w')
 
         # pidstat string arguments
-        pidstat = [self.pidstat, '-druh', '-p', str(pid), str(interval), str(frequency)]
-
+        pidstat = [self.pidstat,
+                   '-druh',
+                   '-p',
+                   str(pid),
+                   str(interval),
+                   str(frequency)]
 
         proc = subprocess.Popen(
             pidstat,

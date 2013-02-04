@@ -8,9 +8,10 @@ __author__ = 'Greg Albrecht <gba@splunk.com>'
 __copyright__ = 'Copyright 2012 Splunk, Inc.'
 __license__ = 'Apache License 2.0'
 
-import pydstat
 import optparse
+import pydstat
 import sys
+
 
 def main():
     """Main loop.
@@ -27,28 +28,28 @@ def main():
 
     parser = optparse.OptionParser(usage=use)
 
-    parser.add_option( '-p',
-                       '--proc_id' ,
-                       dest='proc_id',
-                       help='Process ID')
+    parser.add_option('-p',
+                      '--proc_id',
+                      dest='proc_id',
+                      help='Process ID')
 
-    parser.add_option( '-i',
-                       "--interval",
-                       dest='interval',
-                       help='Time interval of screenshot.',
-                       type=int)
+    parser.add_option('-i',
+                      '--interval',
+                      dest='interval',
+                      help='Time interval of screenshot.',
+                      type=int)
 
-    parser.add_option( '-f',
-                       '--frequency',
-                       dest='frequency',
-                       help='How many times the script will run. 1 by default.',
-                       type=int)
+    parser.add_option('-f',
+                      '--frequency',
+                      dest='frequency',
+                      help='Times the script will run. 1 by default',
+                      type=int)
 
     (options, args) = parser.parse_args()
 
     if len(args) != 1:
         parser.print_help()
-        parser.error("Incorrect number of arguments. Please enter -p <processID> -i <interval> -f <frequency>!")
+        parser.error("Incorrect number of arguments.\nPlease enter -p <processID> -i <interval> -f <frequency>!")
 
     proc_id = options.proc_id
     if proc_id is None:
