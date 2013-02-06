@@ -9,18 +9,18 @@ __copyright__ = 'Copyright 2011 Splunk, Inc.'
 __license__ = 'Apache License, Version 2.0'
 
 
-import os
 import logging
 import logging.handlers
+import os
 import shlex
 import subprocess
-
 
 IGNORED_FIELDS = ('Time', 'PID', '%guest', 'CPU', 'Command')
 HELP = 'https://github.com/ampledata/pydstat'
 
 
 class PydStatError(StandardError):
+
     """Placeholder Exception for pydstat."""
     pass
 
@@ -68,20 +68,30 @@ class PydStat(object):
         base_logger.addHandler(syslog_logger)
         self.logger = logging.LoggerAdapter(base_logger, {'help': HELP})
 
-    def get_stats(self, pid='ALL'):
+    def get_stats(self, pid='ALL', interval=None, frequency=None):
         """Call pidstat for the specified pid and return its output.
 
         @param pid: Pid to lookup. Default = 'ALL'
         @type pid: string
+        @param interval: interval of time for which to measure the CPU usage
+        @type interval: integer
+        @param frequency: Count how many times the script will run
+        @type frequency: integer
 
         @return: Output from subprocess.Popen() as a string split into a list.
         @rtype: list
         """
+
         devnullr = open('/dev/null', 'r')
         devnullw = open('/dev/null', 'w')
 
-        pidstat = shlex.split(
-            ' '.join([self.pidstat, '-druh', '-p', str(pid)]))
+        # pidstat string arguments
+        pidstat = [self.pidstat,
+                   '-druh',
+                   '-p',
+                   str(pid),
+                   str(interval),
+                   str(frequency)]
 
         proc = subprocess.Popen(
             pidstat,
